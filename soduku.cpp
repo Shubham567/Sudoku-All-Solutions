@@ -36,6 +36,7 @@ void printDebugGrid(vector <vector <int>> grid)
 }
 
 bool isPreviousSolution(vector<vector <int>> grid, int row, int col, int val){
+    // This function makes sure that we do not converge back to any previous solution
     int G_SIZE = grid.size();
     int last = solutions.size() - 1;
     if(last < 0){
@@ -150,13 +151,20 @@ bool solveSoduku(vector<vector <int>> &grid, int row = 0, int col = 0){
     level++;
     
     if(!hasEmptySpace(row,col,grid)){
+        // Solved, Has no empty spces
         if(DEBUG){
             clog<<"\nSolved at Level"<<level<<endl;
             printDebugGrid(grid);
         }
+
+        // Saving solution and finding other
         solutions.push_back(grid);
+
+        //Clearing last found cell
         grid[row][col] = 0;
-        cout<<"\rCount Till Now :"<<solutions.size();
+
+        //In case of multiple solutions, this Strings keeps the user notified about ingoing process
+        cout<<"\rSolution Count(Running) :"<<solutions.size();
         return false;
     }
 
